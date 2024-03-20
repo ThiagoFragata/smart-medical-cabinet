@@ -43,14 +43,18 @@ const renderItems = ({ item }: { item: MedicamentProps }) => (
 );
 
 export default function Home() {
-  const { bottom } = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text type="title" value={`👋`} textStyle={{ fontSize: scaleSize(48) }} />
+        <Text type="title" value={`👋`} />
         <View>
-          <Text type="title" value={`Olá, ${getGreeting()}`} />
+          <Text
+            type="title"
+            value={`Olá, ${getGreeting()}`}
+            textStyle={{ fontSize: scaleSize(28) }}
+          />
           <Text type="subtitle" value="Seja bem-vindo(a)" />
         </View>
       </View>
@@ -63,7 +67,7 @@ export default function Home() {
         renderItem={renderItems}
         contentContainerStyle={{
           gap: scaleSize(16),
-          paddingBottom: bottom,
+          paddingBottom: top,
           paddingHorizontal: scaleSize(4),
         }}
       />
