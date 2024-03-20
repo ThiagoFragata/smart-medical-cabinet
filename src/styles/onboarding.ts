@@ -1,26 +1,26 @@
 import { StyleSheet } from "react-native";
 
-import { scaleFontSize } from "../functions/fontSize";
+import { scaleSize } from "@/src/functions/scaleSize";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    paddingHorizontal: scaleFontSize(32),
+    paddingHorizontal: scaleSize(32),
   },
   main: {
     flex: 1,
     justifyContent: "center",
     marginHorizontal: "auto",
-    gap: scaleFontSize(16),
+    gap: scaleSize(16),
   },
   title: {
-    fontSize: scaleFontSize(28),
+    fontSize: scaleSize(28),
     fontWeight: "bold",
     textAlign: "center",
   },
   subtitle: {
-    fontSize: scaleFontSize(14),
+    fontSize: scaleSize(14),
     color: "#38434D",
     textAlign: "center",
   },
@@ -28,13 +28,14 @@ export const styles = StyleSheet.create({
     color: "#FFFAFA",
     fontWeight: "bold",
     textAlign: "center",
-    padding: scaleFontSize(14),
+    padding: scaleSize(14),
     backgroundColor: "#042940",
-    borderRadius: scaleFontSize(8),
+    borderRadius: scaleSize(8),
   },
   buttonText: {
     color: "#FFFAFA",
     fontWeight: "bold",
     textAlign: "center",
+    fontSize: scaleSize(14),
   },
 });

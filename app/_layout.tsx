@@ -5,13 +5,6 @@ export default function RootLayout() {
     <Stack
       screenOptions={{
         headerShown: false,
-        headerTintColor: "#191919",
-        headerStyle: {
-          backgroundColor: "#D6D58E",
-        },
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
       }}
     />
   );

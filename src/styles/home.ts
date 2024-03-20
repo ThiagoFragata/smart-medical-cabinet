@@ -1,27 +1,38 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
-import { scaleFontSize } from "../functions/fontSize";
+import { scaleSize } from "@/src/functions/scaleSize";
+import { theme } from "@/src/theme";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    paddingHorizontal: scaleSize(24),
+    backgroundColor: theme.colors.light,
   },
   header: {
-    alignItems: "flex-start",
-    marginTop: scaleFontSize(8),
-    paddingHorizontal: scaleFontSize(24),
-    paddingVertical: scaleFontSize(8),
-    width: Dimensions.get("window").width,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: scaleSize(16),
+    marginBottom: scaleSize(24),
   },
-  title: {
-    fontSize: scaleFontSize(28),
-    fontWeight: "bold",
-    textAlign: "center",
+  itemList: {
+    flexDirection: "row",
+    backgroundColor: theme.colors.light,
+    borderRadius: scaleSize(8),
+    padding: scaleSize(16),
+
+    shadowColor: theme.colors.dark,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
-  subtitle: {
-    fontSize: scaleFontSize(14),
-    color: "#38434D",
-    textAlign: "center",
+  vStack: {
+    flex: 1,
+    gap: scaleSize(8),
   },
 });
