@@ -1,6 +1,9 @@
-import { FlatList, View } from "react-native";
+import { useQuery } from "@tanstack/react-query";
+import { getDatabase, onValue, ref } from "firebase/database";
+import { FlatList, RefreshControl, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { appFirebase } from "@/firebaseConfig";
 import { Text } from "@/src/components/atoms/text";
 import { ItemMedicament } from "@/src/components/molecules/itemMedicament";
 import { getGreeting } from "@/src/functions/getGreeting";
@@ -9,20 +12,11 @@ import { styles } from "@/src/styles/home";
 import { theme } from "@/src/theme";
 
 interface MedicamentProps {
-  id: string;
-  name: string;
+  id: number;
+  medicament: string;
   amount: number;
   updateAt: string;
 }
-
-const DATA: MedicamentProps[] = [
-  { id: "1", name: "Paracetamol", amount: 10, updateAt: "17 de mar de 2024 às 21:35" },
-  { id: "2", name: "Ibuprofeno", amount: 15, updateAt: "18 de mar de 2024 às 10:15" },
-  { id: "3", name: "Dipirona", amount: 8, updateAt: "18 de mar de 2024 às 14:45" },
-  { id: "4", name: "Cetoprofeno", amount: 20, updateAt: "19 de mar de 2024 às 09:30" },
-  { id: "5", name: "Aspirina", amount: 12, updateAt: "20 de mar de 2024 às 16:20" },
-  { id: "6", name: "Omeprazol", amount: 5, updateAt: "21 de mar de 2024 às 11:10" },
-];
 
 const renderHeader = () => (
   <Text type="heading" value="Meus remédios" style={{ marginTop: scaleSize(16) }} />
@@ -32,7 +26,7 @@ const renderItems = ({ item }: { item: MedicamentProps }) => (
   <View style={styles.itemList}>
     <View style={styles.vStack}>
       <ItemMedicament icon="badgeInfo" label={"Porta"} value={item.id} />
-      <ItemMedicament icon="pill" label={"Remédio"} value={item.name} />
+      <ItemMedicament icon="pill" label={"Remédio"} value={item.medicament} />
       <ItemMedicament icon="calendar" label={"Última dose"} value={item.updateAt} />
     </View>
     <View>
@@ -45,6 +39,33 @@ const renderItems = ({ item }: { item: MedicamentProps }) => (
 export default function Home() {
   const { top } = useSafeAreaInsets();
 
+  const { data, isLoading, isRefetching, isError, refetch } = useQuery({
+    queryKey: ["medicaments"],
+    queryFn: async () => {
+      const db = getDatabase(appFirebase);
+      const medicamentsURL = ref(db, "medicaments/");
+
+      const medicaments = new Promise((resolve, reject) => {
+        onValue(
+          medicamentsURL,
+          (snapshot) => {
+            const data = snapshot.val();
+            const arrayMedicaments = Object.keys(data).map((key) => {
+              return { id: key, ...data[key] };
+            });
+
+            resolve(arrayMedicaments);
+          },
+          (error) => {
+            reject(error);
+          },
+        );
+      });
+      return medicaments as unknown as MedicamentProps[];
+    },
+    initialData: [] as MedicamentProps[],
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -56,9 +77,25 @@ export default function Home() {
       </View>
 
       <FlatList
-        data={DATA}
-        keyExtractor={(item) => item.id}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefetching}
+            onRefresh={refetch}
+            tintColor={theme.colors.dark}
+            colors={[theme.colors.secondary.light]}
+          />
+        }
+        refreshing={isLoading}
+        data={data}
+        keyExtractor={(item) => item.medicament}
         ListHeaderComponent={renderHeader}
+        ListEmptyComponent={
+          <View style={{ flex: 1 }}>
+            {isError && (
+              <Text type={"title"} value={"Não encontramos seus dados ou pode estar offline"} />
+            )}
+          </View>
+        }
         showsVerticalScrollIndicator={false}
         renderItem={renderItems}
         contentContainerStyle={{
