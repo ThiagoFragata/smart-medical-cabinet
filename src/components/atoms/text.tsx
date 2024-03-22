@@ -24,6 +24,9 @@ const text = {
   paragraph: (value: string | number, style?: StyleProp<TextStyle>) => (
     <TextNative style={[styles.paragraph, style]}>{value}</TextNative>
   ),
+  default: (value: string | number, style?: StyleProp<TextStyle>) => (
+    <TextNative style={[styles.default, style]}>{value}</TextNative>
+  ),
 };
 
 interface HeadingProps {
@@ -44,12 +47,12 @@ export function Text({ type, value, style, textStyle, ...props }: HeadingProps) 
 export const styles = StyleSheet.create({
   title: {
     color: theme.colors.dark,
-    fontSize: scaleSize(32),
+    fontSize: scaleSize(24),
     fontWeight: "700",
   },
   subtitle: {
     color: theme.colors.dark,
-    fontSize: scaleSize(24),
+    fontSize: scaleSize(16),
     fontWeight: "600",
   },
   heading: {
@@ -60,6 +63,11 @@ export const styles = StyleSheet.create({
   paragraph: {
     color: theme.colors.dark,
     fontSize: scaleSize(16),
+    fontWeight: "400",
+  },
+  default: {
+    color: theme.colors.dark,
+    fontSize: scaleSize(14),
     fontWeight: "400",
   },
 });

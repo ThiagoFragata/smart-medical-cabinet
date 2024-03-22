@@ -33,6 +33,6 @@ export const styles = StyleSheet.create({
   },
   vStack: {
     flex: 1,
-    gap: scaleSize(8),
+    gap: scaleSize(16),
   },
 });

@@ -50,11 +50,7 @@ export default function Home() {
       <View style={styles.header}>
         <Text type="title" value={`👋`} />
         <View>
-          <Text
-            type="title"
-            value={`Olá, ${getGreeting()}`}
-            textStyle={{ fontSize: scaleSize(28) }}
-          />
+          <Text type="title" value={`Olá, ${getGreeting()}`} textStyle={{}} />
           <Text type="subtitle" value="Seja bem-vindo(a)" />
         </View>
       </View>
