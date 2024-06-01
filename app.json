@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "smart-medical-cabinet",
+    "name": "Meus remédios",
     "slug": "smart-medical-cabinet",
     "scheme": "smart-medical-cabinet",
     "version": "1.0.0",
@@ -25,13 +25,28 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#042940"
-      }
+      },
+      "package": "com.fragata.smartmedicalcabinet"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "73bc4be4-2ec6-49ff-a299-552b167efdb7"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/73bc4be4-2ec6-49ff-a299-552b167efdb7"
+    }
   }
 }
