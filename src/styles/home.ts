@@ -15,12 +15,12 @@ export const styles = StyleSheet.create({
     gap: scaleSize(16),
     marginBottom: scaleSize(24),
   },
-  itemList: {
-    flexDirection: "row",
-    backgroundColor: theme.colors.light,
-    borderRadius: scaleSize(8),
+  listContainer: {
+    flexDirection: "column",
+    borderRadius: scaleSize(24),
     padding: scaleSize(16),
 
+    backgroundColor: theme.colors.light,
     shadowColor: theme.colors.dark,
     shadowOffset: {
       width: 0,
@@ -30,6 +30,11 @@ export const styles = StyleSheet.create({
     shadowRadius: 1.41,
 
     elevation: 2,
+  },
+  itemList: {
+    flexDirection: "row",
+    borderRadius: scaleSize(8),
+    padding: scaleSize(16),
   },
   vStack: {
     flex: 1,

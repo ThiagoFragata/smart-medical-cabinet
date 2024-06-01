@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { getDatabase, onValue, ref } from "firebase/database";
-import { FlatList, RefreshControl, View } from "react-native";
+import { FlatList, GestureResponderEvent, RefreshControl, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { appFirebase } from "@/firebaseConfig";
+import { Button } from "@/src/components/atoms/button";
 import { Text } from "@/src/components/atoms/text";
 import { ItemMedicament } from "@/src/components/molecules/itemMedicament";
+import { formattingTimestamp } from "@/src/functions/formattingTimeStamp";
 import { getGreeting } from "@/src/functions/getGreeting";
 import { scaleSize } from "@/src/functions/scaleSize";
 import { styles } from "@/src/styles/home";
@@ -23,16 +25,29 @@ const renderHeader = () => (
 );
 
 const renderItems = ({ item }: { item: MedicamentProps }) => (
-  <View style={styles.itemList}>
-    <View style={styles.vStack}>
-      <ItemMedicament icon="badgeInfo" label={"Porta"} value={item.id} />
-      <ItemMedicament icon="pill" label={"Remédio"} value={item.medicament} />
-      <ItemMedicament icon="calendar" label={"Última dose"} value={item.updateAt} />
+  <View style={styles.listContainer}>
+    <View style={styles.itemList}>
+      <View style={styles.vStack}>
+        <ItemMedicament icon="badgeInfo" label={"Porta"} value={item.id} />
+        <ItemMedicament icon="pill" label={"Remédio"} value={item.medicament} />
+        <ItemMedicament
+          icon="calendar"
+          label={"Última dose"}
+          value={formattingTimestamp(Number(item.updateAt))}
+        />
+      </View>
+      <View>
+        <Text type="paragraph" value={"Quantidade"} textStyle={{ color: theme.colors.gray }} />
+        <Text type="title" value={item.amount} textStyle={{ fontSize: scaleSize(64) }} />
+      </View>
     </View>
-    <View>
-      <Text type="paragraph" value={"Quantidade"} textStyle={{ color: theme.colors.gray }} />
-      <Text type="title" value={item.amount} textStyle={{ fontSize: scaleSize(64) }} />
-    </View>
+
+    <Button
+      title={"Tomar remédio"}
+      onPress={function (event: GestureResponderEvent): void {
+        throw new Error("Function not implemented.");
+      }}
+    />
   </View>
 );
 
